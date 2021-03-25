@@ -1,2 +1,2 @@
 # starwars-frontend
-Simple frontend to search for Star Wars Persons
+Simple frontend to search for starwars movie characters
