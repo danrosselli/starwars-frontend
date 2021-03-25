@@ -1,6 +1,6 @@
 # Star Wars React Front-end
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Simple frontend to search for starwars movie characters written in React
 
 ## Available Scripts
 
