@@ -3,6 +3,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { withRouter } from "react-router-dom";
 import { DataGrid } from '@material-ui/data-grid';
 import axios from 'axios';
+import {API_URL} from '../Config';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import DetailsIcon from '@material-ui/icons/Details';
 import {
@@ -40,7 +41,7 @@ class Favorite extends React.Component {
   componentDidMount() {
 
     // get all people
-    axios.get('http://starwars.soware.com.br:8000/people')
+    axios.get(API_URL + '/people')
     .then((response) => {
       this.setState({rows: response.data});
     })
@@ -50,7 +51,7 @@ class Favorite extends React.Component {
 
   delete(id) {
     // get all people
-    axios.delete('http://starwars.soware.com.br:8000/people/' + id)
+    axios.delete(API_URL + '/people/' + id)
     .then((response) => {
       console.log(response);
 

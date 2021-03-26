@@ -2,6 +2,7 @@ import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { withRouter } from "react-router-dom";
 import axios from 'axios';
+import {API_URL} from '../Config';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import Alert from '@material-ui/lab/Alert';
@@ -78,7 +79,7 @@ class Person extends React.Component {
   save(data) {
     // put people data
     data.id = this.props.match.params.id;
-    axios.put('http://starwars.soware.com.br:8000/people', data)
+    axios.put(API_URL + '/people', data)
     .then((response) => {
       console.log('saved:', response);
     })
