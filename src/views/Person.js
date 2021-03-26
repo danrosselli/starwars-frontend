@@ -100,9 +100,6 @@ class Person extends React.Component {
 
     return (
       <>
-        <Grid item xs={12} style={{textAlign: 'center'}}>
-          <Typography variant={'h5'}>Detalhes do personagem</Typography>
-        </Grid>
         <Grid item xs={12}>
           <Grid container>
             <Grid container item xs={12} sm={6} md={4} lg={4} xl={4} justify="center" direction="column" alignItems="center">
