@@ -2,6 +2,7 @@ import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { withRouter } from "react-router-dom";
 import axios from 'axios';
+import SearchIcon from '@material-ui/icons/Search';
 import {
   Typography,
   Grid,
@@ -10,23 +11,14 @@ import {
   Card,
   CardActions,
   CardContent,
-  Divider
+  Divider,
+  InputAdornment
 } from '@material-ui/core';
 
 const styles = theme => ({
-  root: {
-    flexGrow: 1,
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  paper: {
-    padding: theme.spacing(2),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-  },
-  button: {
-    margin: theme.spacing(2),
+  search: {
+    width: '80%',
+    marginBottom: 16
   }
 });
 
@@ -104,7 +96,7 @@ class Home extends React.Component {
         }
 
         return(
-          <Grid key={idx} item xs={3}>
+          <Grid key={idx} item xs={12} sm={6} md={4} lg={3} xl={2} >
             <Card>
               <CardContent>
                 <Typography variant="h5" component="h2">{item.name}</Typography>
@@ -138,14 +130,21 @@ class Home extends React.Component {
         <Grid item xs={12} style={{textAlign: 'center'}}>
           <Typography variant={'h5'}>Procure os personagens de Star Wars</Typography>
         </Grid>
-        <Grid item xs={12}>
+        <Grid container item xs={12} justify='center'>
           <TextField id="inputSearch"
+            className={classes.search}
             label="Procurar"
             variant="outlined"
             value={this.state.inputSearch}
             onChange={e => this.handleInputSearch(e)}
-            fullWidth
             size="small"
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <SearchIcon />
+                </InputAdornment>
+              ),
+            }}
           />
         </Grid>
         <Grid item xs={12}>

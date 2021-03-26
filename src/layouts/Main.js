@@ -1,7 +1,10 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { withRouter } from "react-router-dom";
-import MenuIcon from '@material-ui/icons/Menu';
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import SearchIcon from '@material-ui/icons/Search';
+import Background from '../assets/26842.jpg';
+import { green, purple } from '@material-ui/core/colors';
 
 import {
   AppBar,
@@ -11,12 +14,18 @@ import {
   Paper,
   Grid,
   Button,
-  Divider
+  Divider,
 } from '@material-ui/core';
 
 const styles = theme => ({
   root: {
     flexGrow: 1,
+  },
+  header: {
+    backgroundImage: `url(${Background})`,
+    backgroundPosition: 'center',
+    backgroundSize: 'cover',
+    backgroundRepeat: 'no-repeat'
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -29,6 +38,15 @@ const styles = theme => ({
   },
   button: {
     margin: theme.spacing(2),
+    color: 'white',
+    backgroundColor: '#94aa8a',
+    '&:hover': {
+      backgroundColor: '#7b8e72',
+      borderColor: '#7b8e72',
+      boxShadow: 'none',
+    },
+    boxShadow: 'none',
+    borderColor: '#94aa8a',
   }
 });
 
@@ -39,36 +57,31 @@ class Main extends React.Component {
 
     return (
       <div className={classes.root}>
-        {/*
-        <AppBar position="static">
-          <Toolbar variant="dense">
-            <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-              <MenuIcon />
-            </IconButton>
-            <Typography variant="h6" color="inherit">
-              Star Wars!
-            </Typography>
-          </Toolbar>
-        </AppBar>
-        */}
-
           <Grid container spacing={3}>
-            <Grid item xs={12}>
-              <Paper className={classes.paper} elevation={0}>
-                <Button className={classes.button} variant="contained" color="primary" onClick={() => {
-                  this.props.history.push('/');
-                }}>
+            <Grid item xs={12} className={classes.header}>
+              <div className={classes.paper}>
+                <Button
+                  className={classes.button}
+                  variant="outlined"
+                  color="primary"
+                  startIcon={<SearchIcon />}
+                  onClick={() => this.props.history.push('/')}
+                >
                   Consultar
                 </Button>
-                <Button className={classes.button} variant="contained" color="primary" onClick={() => {
-                  this.props.history.push('/favorite');
-                }}>
+                <Button
+                  className={classes.button}
+                  variant="outlined"
+                  color="primary"
+                  startIcon={<FavoriteBorderIcon />}
+                  onClick={() => this.props.history.push('/favorite')}
+                >
                   Favoritos
                 </Button>
-              </Paper>
+              </div>
             </Grid>
           </Grid>
-          <Divider />
+          <Divider style={{marginBottom: 40}} />
           <Grid container spacing={3} style={{padding: 20}}>
             {this.props.children}
           </Grid>

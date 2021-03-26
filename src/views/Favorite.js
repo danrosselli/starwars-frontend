@@ -3,6 +3,8 @@ import { withStyles } from '@material-ui/core/styles';
 import { withRouter } from "react-router-dom";
 import { DataGrid } from '@material-ui/data-grid';
 import axios from 'axios';
+import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
+import DetailsIcon from '@material-ui/icons/Details';
 import {
   Typography,
   Grid,
@@ -11,18 +13,18 @@ import {
 
 const styles = theme => ({
   root: {
-    flexGrow: 1,
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  paper: {
-    padding: theme.spacing(2),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-  },
-  button: {
-    margin: theme.spacing(2),
+    "& .MuiDataGrid-columnsContainer": {
+      backgroundColor: "white"
+    },
+    "& .MuiDataGrid-cell": {
+      backgroundColor: "white"
+    },
+    "& .MuiDataGrid-footer": {
+      backgroundColor: "white"
+    },
+    "& .MuiDataGrid-columnSeparator": {
+      display: "none"
+    }
   }
 });
 
@@ -60,7 +62,7 @@ class Favorite extends React.Component {
     const { classes} = this.props;
 
     const columns = [
-      { field: 'id', headerName: 'ID', width: 70 },
+      { field: 'id', headerName: 'ID', width: 70, hide:true },
       { field: 'name', headerName: 'Name', width: 130 },
       { field: 'gender', headerName: 'Gender', width: 130 },
       { field: 'height', headerName: 'Height', width: 130 },
@@ -70,20 +72,34 @@ class Favorite extends React.Component {
       { field: 'birth_year', headerName: 'Birth year', width: 130 },
       {
         field: '',
-        width: 250,
+        width: 300,
         renderCell: (params: GridCellParams) => (
           <strong>
-            <Button variant="contained" color="primary" size="small" style={{ marginLeft: 16 }} onClick={(value) => {
-              this.props.history.push('/person/' + params.row.id);
-            }}>
+            <Button
+              variant="outlined"
+              color="default"
+              size="small"
+              style={{ marginLeft: 16 }}
+              startIcon={<DetailsIcon />}
+              onClick={(value) => {
+                this.props.history.push('/person/' + params.row.id);
+              }}
+            >
               Detalhes
             </Button>
-            <Button variant="contained" color="primary" size="small" style={{ marginLeft: 16 }} onClick={(value) => {
-              let rows = [... this.state.rows];
-              rows.splice(params.rowIndex, 1);
-              this.setState({rows});
-              this.delete(params.row.id);
-            }}>
+            <Button
+              variant="outlined"
+              color="default"
+              size="small"
+              style={{ marginLeft: 16 }}
+              startIcon={<DeleteOutlineIcon />}
+              onClick={(value) => {
+                let rows = [... this.state.rows];
+                rows.splice(params.rowIndex, 1);
+                this.setState({rows});
+                this.delete(params.row.id);
+              }}
+            >
               Apagar
             </Button>
           </strong>
@@ -98,7 +114,15 @@ class Favorite extends React.Component {
           <Typography variant={'h5'}>Meus favoritos</Typography>
         </Grid>
         <Grid item xs={12}>
-          <DataGrid rows={this.state.rows} columns={columns} autoHeight pageSize={5} disableColumnMenu={true} />
+          <DataGrid
+            rows={this.state.rows}
+            columns={columns}
+            autoHeight
+            pageSize={6}
+            disableColumnMenu
+            disableSelectionOnClick
+            className={classes.root}
+          />
         </Grid>
       </>
     );

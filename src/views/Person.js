@@ -2,11 +2,15 @@ import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { withRouter } from "react-router-dom";
 import axios from 'axios';
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import Alert from '@material-ui/lab/Alert';
 import {
   Typography,
   Grid,
   Button,
-  Avatar
+  Avatar,
+  Snackbar
 } from '@material-ui/core';
 
 const styles = theme => ({
@@ -33,7 +37,8 @@ class Person extends React.Component {
     this.state = {
       row: {},
       altrow: {},
-      filmsById: []
+      filmsById: [],
+      open: false,
     }
 
   }
@@ -100,39 +105,54 @@ class Person extends React.Component {
         </Grid>
         <Grid item xs={12}>
           <Grid container>
-            <Grid container item xs={4} justify="center" direction="column" alignItems="center">
+            <Grid container item xs={12} sm={6} md={4} lg={4} xl={4} justify="center" direction="column" alignItems="center">
               <Avatar alt="Remy Sharp" style={{width: 140, height: 140}} src={this.state.altrow.image} />
               <Typography variant={'h4'} style={{marginTop: 10}}>{this.state.row.name}</Typography>
             </Grid>
-            <Grid item xs={3}>
-              <Typography style={{marginBottom: 10}} variant={'h6'}>Informations</Typography>
-              <Typography>Gender: {this.state.row.gender}</Typography>
-              <Typography>Height: {this.state.row.height} cm</Typography>
-              <Typography>Mass: {this.state.row.mass} Kg</Typography>
-              <Typography>Hair color: {this.state.row.hair_color}</Typography>
-              <Typography>Skin color: {this.state.row.skin_color}</Typography>
-              <Typography>Eye color: {this.state.row.eye_color}</Typography>
-              <Typography>Birth Year: {this.state.row.birth_year}</Typography>
+            <Grid container item xs={12} sm={6} md={3} lg={3} xl={3} direction="column" alignItems="center">
+              <Typography style={{marginTop: 10, marginBottom: 10}} variant={'h6'}>Informações</Typography>
+              <Typography>Gênero: {this.state.row.gender}</Typography>
+              <Typography>Altura: {this.state.row.height} cm</Typography>
+              <Typography>Peso: {this.state.row.mass} Kg</Typography>
+              <Typography>Cor do cabelo: {this.state.row.hair_color}</Typography>
+              <Typography>Cor da pele: {this.state.row.skin_color}</Typography>
+              <Typography>Cor dos olhos: {this.state.row.eye_color}</Typography>
+              <Typography>Ano de nascimento: {this.state.row.birth_year}</Typography>
             </Grid>
-            <Grid item xs={3}>
-              <Typography style={{marginBottom: 10}} variant={'h6'}>Films</Typography>
+            <Grid container item xs={12} sm={6} md={3} lg={3} xl={3} direction="column" alignItems="center">
+              <Typography style={{marginTop: 10, marginBottom: 10}} variant={'h6'}>Filmes</Typography>
               {films}
             </Grid>
-            <Grid item xs={2}>
-              <Button className={classes.button} variant="contained" color="primary" onClick={() => {
-                this.save(this.state.row);
-                this.props.history.push('/');
-              }}>
+            <Grid container item xs={12} sm={6} md={2} lg={2} xl={2} justify="center" alignItems="flex-start">
+              <Button
+                className={classes.button}
+                variant="outlined"
+                color="primary"
+                startIcon={<FavoriteBorderIcon />}
+                onClick={() => {
+                  this.save(this.state.row);
+                  this.setState({open: true});
+                }}
+              >
                 Salvar
               </Button>
-              <Button className={classes.button} variant="contained" color="primary" onClick={() => {
-                this.props.history.go(-1);
-              }}>
+              <Button
+                className={classes.button}
+                variant="outlined"
+                color="secondary"
+                startIcon={<ArrowBackIcon />}
+                onClick={() => this.props.history.go(-1)}
+              >
                 Voltar
               </Button>
             </Grid>
           </Grid>
         </Grid>
+        <Snackbar open={this.state.open} autoHideDuration={3000} onClose={() => this.setState({open: false})}>
+          <Alert variant="filled" severity="success">
+            Adicionado aos favoritos com sucesso
+          </Alert>
+        </Snackbar>
       </>
     );
   }
